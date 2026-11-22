@@ -20,7 +20,8 @@
       img: "img/prato-feito.webp",
       alt: "Prato feito com arroz, feijão, carne, tomate e alface",
       desc: "Arroz soltinho, feijão temperado, carne de panela, macarrão e salada. O clássico que resolve o almoço.",
-      tags: ["Mais pedido"]
+      tags: ["Mais pedido"],
+      category: "prato"
     },
     {
       id: "frango-grelhado",
@@ -29,7 +30,8 @@
       img: "img/frango-grelhado.jpg",
       alt: "Filé de frango grelhado fatiado com brócolis e legumes",
       desc: "Filé de frango marinado no alho e limão, grelhado na hora, com arroz, feijão e legumes.",
-      tags: []
+      tags: [],
+      category: "prato"
     },
     {
       id: "carne-de-panela",
@@ -38,7 +40,8 @@
       img: "img/carne-de-panela.jpg",
       alt: "Cubos de carne cozidos com molho e legumes",
       desc: "Carne cozida lentamente por três horas, macia no garfo, com arroz, feijão e legumes.",
-      tags: ["Da casa"]
+      tags: ["Da casa"],
+      category: "prato"
     },
     {
       id: "feijoada",
@@ -47,7 +50,48 @@
       img: "img/feijoada.jpg",
       alt: "Feijoada em panela de barro com caldo escuro e carne",
       desc: "Feijão preto, linguiça, carne seca e paio. Vem com arroz, couve refogada e farofa.",
-      tags: ["Sábados"]
+      tags: ["Sábados"],
+      category: "prato"
+    },
+    {
+      id: "suco-laranja",
+      name: "Suco de Laranja",
+      price: 7,
+      desc: "Feito na hora, com laranjas frescas. Copo de 400ml.",
+      tags: ["Natural"],
+      category: "bebida"
+    },
+    {
+      id: "suco-maracuja",
+      name: "Suco de Maracujá",
+      price: 7,
+      desc: "Maracujá batido na hora, com pouquinho de açúcar. Copo de 400ml.",
+      tags: ["Natural"],
+      category: "bebida"
+    },
+    {
+      id: "suco-limao",
+      name: "Suco de Limão",
+      price: 7,
+      desc: "Limonada batida, do jeito que você pedir: com ou sem açúcar. Copo de 400ml.",
+      tags: [],
+      category: "bebida"
+    },
+    {
+      id: "refri-lata",
+      name: "Refrigerante Lata",
+      price: 5,
+      desc: "Coca-Cola ou Guaraná Antarctica, 350ml, gelado.",
+      tags: [],
+      category: "bebida"
+    },
+    {
+      id: "refri-1l",
+      name: "Refrigerante 1 Litro",
+      price: 9,
+      desc: "Coca-Cola, Guaraná Antarctica ou Fanta Laranja, 1 litro, gelado.",
+      tags: [],
+      category: "bebida"
     }
   ];
 
@@ -278,15 +322,58 @@
     );
   }
 
+  function drinkMarkup(dish) {
+    var tags = dish.tags
+      .map(function (tag) {
+        return '<span class="tag">' + tag + "</span>";
+      })
+      .join("");
+
+    return (
+      '<article class="menu-item menu-item--drink" data-dish-item="' + dish.id + '">' +
+      "<div>" +
+      "<h2>" + dish.name + "</h2>" +
+      '<p class="desc">' + dish.desc + "</p>" +
+      (tags ? '<div class="dish-tags">' + tags + "</div>" : "") +
+      '<div class="menu-foot">' +
+      '<span class="price">' + moneyText(dish.price) + "</span>" +
+      '<div class="qty">' +
+      '<button type="button" data-qty-minus aria-label="Diminuir quantidade de ' + dish.name + '">−</button>' +
+      '<span data-qty-value>1</span>' +
+      '<button type="button" data-qty-plus aria-label="Aumentar quantidade de ' + dish.name + '">+</button>' +
+      "</div>" +
+      '<button type="button" class="btn btn-primary btn-small" data-add="' + dish.id + '">Adicionar</button>' +
+      "</div>" +
+      "</div>" +
+      "</article>"
+    );
+  }
+
   function renderMenu() {
+    var dishes = DISHES.filter(function (dish) {
+      return dish.category !== "bebida";
+    });
+    var drinks = DISHES.filter(function (dish) {
+      return dish.category === "bebida";
+    });
+
     var featured = document.querySelector("[data-featured]");
     if (featured) {
-      featured.innerHTML = DISHES.map(featuredMarkup).join("");
+      featured.innerHTML = dishes.map(featuredMarkup).join("");
     }
 
     var menu = document.querySelector("[data-menu]");
     if (menu) {
-      menu.innerHTML = DISHES.map(menuMarkup).join("");
+      var html = dishes.map(menuMarkup).join("");
+      if (drinks.length) {
+        html +=
+          '<div class="menu-section">' +
+          '<span class="eyebrow">Bebidas</span>' +
+          '<h2 class="menu-section-title">Para acompanhar.</h2>' +
+          "</div>" +
+          drinks.map(drinkMarkup).join("");
+      }
+      menu.innerHTML = html;
     }
   }
 

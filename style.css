@@ -891,6 +891,30 @@ html:not([data-theme="dark"]) .theme-toggle .icon-moon {
   border-top: 1px solid var(--line);
 }
 
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 40px;
+}
+
+.menu-section-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.menu-item--drink {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 20px 0;
+  gap: 0;
+}
+
+.menu-item--drink .menu-foot {
+  margin-top: 12px;
+}
+
 .menu-item {
   display: grid;
   grid-template-columns: 164px minmax(0, 1fr);
