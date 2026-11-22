@@ -199,7 +199,7 @@
     document.querySelectorAll("[data-cart-items]").forEach(function (container) {
       if (!ids.length) {
         container.innerHTML =
-          '<p class="cart-empty">Sua sacola está vazia. Escolha um prato no cardápio.</p>';
+          '<p class="cart-empty">Sua sacola está vazia. Escolha um prato ou uma bebida no cardápio.</p>';
         return;
       }
 
@@ -364,7 +364,7 @@
 
     var menu = document.querySelector("[data-menu]");
     if (menu) {
-      var html = dishes.map(menuMarkup).join("");
+      var html = "";
       if (drinks.length) {
         html +=
           '<div class="menu-section">' +
@@ -373,6 +373,7 @@
           "</div>" +
           drinks.map(drinkMarkup).join("");
       }
+      html += dishes.map(menuMarkup).join("");
       menu.innerHTML = html;
     }
   }
