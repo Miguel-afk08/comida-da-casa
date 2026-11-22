@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comida da Casa — Comida caseira no Recife</title>
+    <meta name="description" content="Almoço caseiro feito todos os dias no Recife Antigo. Arroz, feijão e carne cozida sem pressa. Peça pelo site ou pelo WhatsApp, com entrega e retirada.">
+    <meta name="theme-color" content="#f6f1e7">
+    <script>
+    (function () {
+        var tema = "light";
+        try {
+            tema = localStorage.getItem("comida-da-casa:tema:v1");
+            if (!tema) tema = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", tema);
+    })();
+    </script>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta property="og:title" content="Comida da Casa — Comida caseira no Recife">
+    <meta property="og:description" content="O almoço que você pediria na casa de alguém que cozinha bem. Peça pelo site ou pelo WhatsApp.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Comida da Casa",
+      "servesCuisine": "Brasileira",
+      "priceRange": "R$ 20–28",
+      "telephone": "+55 81 99999-9999",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua do Bom Jesus, 120",
+        "addressLocality": "Recife",
+        "addressRegion": "PE",
+        "addressCountry": "BR"
+      },
+      "openingHours": "Mo-Sa 11:00-22:00"
+    }
+    </script>
+</head>
+
+<body data-page="home">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="Comida da Casa — página inicial">
+                <span class="brand-name">Comida da Casa</span>
+                <span class="brand-sub">Cozinha caseira · Recife</span>
+            </a>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+                <a href="cardapio.html">Cardápio</a>
+                <a href="sobre.html">A casa</a>
+                <a href="contato.html">Contato</a>
+                <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                    <span data-theme-label>Tema escuro</span>
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button type="button" class="theme-toggle theme-toggle-head" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                </button>
+                <button type="button" class="cart-button" data-cart-open aria-label="Abrir sacola">
+                    Sacola <span class="cart-count" data-cart-count>0</span>
+                </button>
+                <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="conteudo">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">Cozinha caseira · Recife</span>
+                    <h1><span class="hero-line">Comida de casa,</span><br><em>todos os dias.</em></h1>
+                    <p class="lead">Arroz soltinho, feijão temperado e carne cozida sem pressa. O almoço que você pediria na casa de alguém que cozinha bem — para comer aqui ou receber aí.</p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="cardapio.html">
+                            Ver o cardápio
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a class="btn btn-outline" href="https://wa.me/5581999999999?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%20na%20Comida%20da%20Casa.">Pedir pelo WhatsApp</a>
+                    </div>
+
+                    <div class="hero-meta">
+                        <span>Segunda a sábado, 11h–22h</span>
+                        <span>Entrega no Centro e arredores</span>
+                        <span>Retirada no balcão</span>
+                    </div>
+                </div>
+
+                <div class="hero-media">
+                    <figure class="hero-figure">
+                        <img class="hero-main" src="img/carne-de-panela.jpg" width="770" height="513" alt="Carne de panela cozida lentamente com legumes e molho">
+                        <img class="hero-secondary" src="img/prato-feito.webp" width="875" height="485" alt="Prato feito com arroz, feijão, carne e salada" loading="lazy">
+                        <div class="hero-note">
+                            <span class="eyebrow">Hoje no fogão</span>
+                            <strong>Carne de panela</strong>
+                            <small>R$ 25,00 · até acabar</small>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="eyebrow">Do fogão</span>
+                        <h2>O almoço de hoje</h2>
+                        <p>Quatro pratos, feitos na manhã. A sacola é montada aqui e confirmada pelo WhatsApp.</p>
+                    </div>
+                    <a class="link-arrow" href="cardapio.html">
+                        Cardápio completo
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="featured-list reveal" data-featured></div>
+            </div>
+        </section>
+
+        <section class="section section-tight">
+            <div class="container story-grid">
+                <figure class="story-media reveal">
+                    <img src="img/prato-feito.webp" width="875" height="485" alt="Prato feito servido com talheres sobre toalha de mesa" loading="lazy">
+                    <figcaption class="caption">O prato feito, do jeito que sai da cozinha.</figcaption>
+                </figure>
+
+                <div class="story-text reveal">
+                    <span class="eyebrow">A casa</span>
+                    <h2>Tempero de quem cozinha todo dia.</h2>
+                    <p>Começou com uma panela grande de feijão e vizinhos que apareciam na hora do almoço. A cozinha cresceu, o delivery chegou, mas o jeito continua o mesmo: comprar fresco de manhã, temperar cedo e servir quente.</p>
+                    <p>Nada aqui é congelado ou industrializado. O arroz sai na hora, a carne cozinha por três horas e o feijão descansa no tempero antes de ir ao fogo.</p>
+
+                    <blockquote class="pullquote">“Comida boa é a que faz querer repetir no dia seguinte.”</blockquote>
+
+                    <a class="link-arrow" href="sobre.html">
+                        Conhecer a casa
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="eyebrow">Como pedir</span>
+                        <h2>Simples como pedir em casa.</h2>
+                    </div>
+                </div>
+
+                <div class="steps reveal">
+                    <div class="step">
+                        <span class="step-num">01</span>
+                        <h3>Escolha no cardápio</h3>
+                        <p>Monte a sacola com os pratos do dia e ajuste as quantidades.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">02</span>
+                        <h3>Confirme pelo WhatsApp</h3>
+                        <p>O pedido chega direto na cozinha. Por lá a gente combina entrega ou retirada.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">03</span>
+                        <h3>Coma bem</h3>
+                        <p>Marmita bem servida e embalada para chegar quente. Bom apetite.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="band">
+            <div class="container band-inner">
+                <div>
+                    <span class="eyebrow">Passe aqui</span>
+                    <h2>Rua do Bom Jesus, 120.<br>Recife Antigo.</h2>
+                    <p>Segunda a sábado, das 11h às 22h. Se preferir, a gente leva até você.</p>
+                </div>
+                <a class="btn btn-light" href="contato.html">Como chegar</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.html">
+                    <span class="brand-name">Comida da Casa</span>
+                    <span class="brand-sub">Cozinha caseira · Recife</span>
+                </a>
+                <p>Comida de verdade, feita todos os dias no Recife Antigo. Sem atalhos, sem congelados.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Navegue</h3>
+                <ul>
+                    <li><a href="cardapio.html">Cardápio</a></li>
+                    <li><a href="sobre.html">A casa</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Onde e quando</h3>
+                <p>Rua do Bom Jesus, 120<br>Recife Antigo, Recife — PE<br>Segunda a sábado, 11h–22h</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <p>
+                    <a href="https://wa.me/5581999999999">(81) 99999-9999</a><br>
+                    <a href="mailto:contato@comidadacasa.com.br">contato@comidadacasa.com.br</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Comida da Casa. Todos os direitos reservados.</span>
+            <span><a href="creditos.html">Créditos e licenças</a></span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

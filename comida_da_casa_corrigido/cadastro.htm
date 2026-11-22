@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar conta — Comida da Casa</title>
+    <meta name="description" content="Crie sua conta na Comida da Casa.">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#232a1c">
+    <script>
+    (function () {
+        var tema = "light";
+        try {
+            tema = localStorage.getItem("comida-da-casa:tema:v1");
+            if (!tema) tema = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", tema);
+    })();
+    </script>
+    <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body class="auth-body">
+    <div class="auth">
+        <aside class="auth-brand">
+            <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+            </button>
+            <a class="brand" href="../index.htm">
+                <span class="brand-name">Comida da Casa</span>
+                <span class="brand-sub">Cozinha caseira · Recife</span>
+            </a>
+
+            <p class="auth-quote">“A gente cozinha como se fosse <em>para a própria família</em>.”</p>
+
+            <div class="auth-brand-footer">
+                <span>Rua do Bom Jesus, 120<br>Recife Antigo, Recife — PE</span>
+                <span>Segunda a sábado<br>11h às 22h</span>
+            </div>
+        </aside>
+
+        <main class="auth-main">
+            <div class="auth-card">
+                <span class="eyebrow">Área do cliente</span>
+                <h1>Criar conta.</h1>
+                <p class="sub">Leva um minuto. Depois é só entrar para acessar sua conta.</p>
+
+                <form action="cadastro_logic.php" method="post">
+                    <div class="field">
+                        <label for="nome">Nome completo</label>
+                        <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Como podemos te chamar?" maxlength="100" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" autocomplete="email" placeholder="voce@email.com" maxlength="100" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" autocomplete="new-password" placeholder="Crie uma senha" minlength="6" maxlength="72" required>
+                        <span class="field-hint">Mínimo de 6 caracteres.</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="confirma_senha">Repetir senha</label>
+                        <input type="password" id="confirma_senha" name="confirma_senha" autocomplete="new-password" placeholder="Repita a senha" minlength="6" maxlength="72" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Cadastrar</button>
+                    <p class="form-status" data-form-status role="status"></p>
+                </form>
+
+                <p class="auth-alt">Já tem uma conta? <a href="index.htm">Entrar</a></p>
+                <a class="auth-back" href="../index.htm">← Voltar ao site</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (function () {
+            var form = document.querySelector("form");
+
+            form.addEventListener("submit", function (event) {
+                var senha = document.getElementById("senha");
+                var confirma = document.getElementById("confirma_senha");
+                var status = form.querySelector("[data-form-status]");
+
+                if (senha.value !== confirma.value) {
+                    event.preventDefault();
+                    status.textContent = "As senhas não coincidem.";
+                    status.style.color = "#8a3417";
+                    confirma.focus();
+                }
+            });
+        })();
+    </script>
+
+    <script>
+    (function () {
+        function temaAtual() {
+            return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        }
+        function aplicar(t) {
+            document.documentElement.setAttribute("data-theme", t);
+            try { localStorage.setItem("comida-da-casa:tema:v1", t); } catch (e) {}
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", t === "dark" ? "#171310" : "#232a1c");
+            document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+                var escuro = t === "dark";
+                btn.setAttribute("aria-pressed", String(escuro));
+                btn.setAttribute("aria-label", escuro ? "Mudar para o tema claro" : "Mudar para o tema escuro");
+            });
+        }
+        document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                document.documentElement.classList.add("theme-switching");
+                setTimeout(function () {
+                    document.documentElement.classList.remove("theme-switching");
+                }, 450);
+                aplicar(temaAtual() === "dark" ? "light" : "dark");
+            });
+        });
+        aplicar(temaAtual());
+    })();
+    </script>
+</body>
+
+</html>

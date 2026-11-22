@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A casa — Comida da Casa</title>
+    <meta name="description" content="Conheça a Comida da Casa: uma cozinha de bairro no Recife Antigo que tempera cedo, cozinha sem pressa e serve comida caseira de verdade.">
+    <meta name="theme-color" content="#f6f1e7">
+    <script>
+    (function () {
+        var tema = "light";
+        try {
+            tema = localStorage.getItem("comida-da-casa:tema:v1");
+            if (!tema) tema = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", tema);
+    })();
+    </script>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="sobre">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.htm" aria-label="Comida da Casa — página inicial">
+                <span class="brand-name">Comida da Casa</span>
+                <span class="brand-sub">Cozinha caseira · Recife</span>
+            </a>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+                <a href="cardapio.htm">Cardápio</a>
+                <a class="is-active" href="sobre.htm" aria-current="page">A casa</a>
+                <a href="contato.htm">Contato</a>
+                <a class="nav-account" href="comida_da_casa_corrigido/index.htm">Área do cliente</a>
+                <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                    <span data-theme-label>Tema escuro</span>
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button type="button" class="theme-toggle theme-toggle-head" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                </button>
+                <button type="button" class="cart-button" data-cart-open aria-label="Abrir sacola">
+                    Sacola <span class="cart-count" data-cart-count>0</span>
+                </button>
+                <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="conteudo">
+        <section class="page-head">
+            <div class="container">
+                <span class="eyebrow">A casa</span>
+                <h1>Uma cozinha pequena,<br><em>uma mesa grande.</em></h1>
+                <p class="lead">A Comida da Casa nasceu de uma panela de feijão e da vizinhança batendo na porta na hora do almoço. O tamanho mudou; o cuidado, não.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container about-cols">
+                <div class="reveal">
+                    <span class="eyebrow">Como começou</span>
+                    <h2>Antes da placa, veio o cheiro.</h2>
+                    <p>Não havia cardápio nem fachada. Só uma cozinha aberta para os vizinhos e a certeza de que comida feita com atenção junta gente. Quem provava, voltava — e trazia mais alguém.</p>
+                    <p>Quando a casa virou restaurante, a regra continuou simples: servir o que a gente comeria. Prato bem servido, tempero de verdade e preço que cabe no dia a dia.</p>
+                </div>
+                <figure class="reveal">
+                    <img class="about-photo" src="img/frango-grelhado.jpg" width="1200" height="900" alt="Frango grelhado fatiado com brócolis e legumes" loading="lazy">
+                    <figcaption class="caption">O frango sai da chapa na hora do pedido.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="section section-tight">
+            <div class="container about-cols">
+                <figure class="reveal">
+                    <img class="about-photo" src="img/carne-de-panela.jpg" width="770" height="513" alt="Carne de panela com legumes em molho" loading="lazy">
+                    <figcaption class="caption">Três horas de panela baixa. Sem atalho.</figcaption>
+                </figure>
+                <div class="reveal">
+                    <span class="eyebrow">O que não muda</span>
+                    <div class="principles">
+                        <div class="principle">
+                            <span>01</span>
+                            <div>
+                                <h3>Feijão de véspera</h3>
+                                <p>O feijão descansa no tempero antes de ir ao fogo. É o que dá aquele gosto de comida de casa.</p>
+                            </div>
+                        </div>
+                        <div class="principle">
+                            <span>02</span>
+                            <div>
+                                <h3>Carne sem pressa</h3>
+                                <p>Panela baixa por três horas. A carne desmancha no garfo e o caldo engrossa naturalmente.</p>
+                            </div>
+                        </div>
+                        <div class="principle">
+                            <span>03</span>
+                            <div>
+                                <h3>Entrega cuidada</h3>
+                                <p>Embalagem térmica e molho separado quando faz diferença. A comida chega como saiu daqui.</p>
+                            </div>
+                        </div>
+                        <div class="principle">
+                            <span>04</span>
+                            <div>
+                                <h3>Preço honesto</h3>
+                                <p>Porção bem servida e preço de almoço de bairro. Sem taxa escondida na conta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="band">
+            <div class="container band-inner">
+                <div>
+                    <span class="eyebrow">Da cozinha</span>
+                    <h2>“A gente cozinha como se fosse para a própria família.”</h2>
+                    <p>É o que está escrito na parede da cozinha — e o que vale para cada marmita que sai daqui.</p>
+                </div>
+                <a class="btn btn-light" href="cardapio.htm">Ver o cardápio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.htm">
+                    <span class="brand-name">Comida da Casa</span>
+                    <span class="brand-sub">Cozinha caseira · Recife</span>
+                </a>
+                <p>Comida de verdade, feita todos os dias no Recife Antigo. Sem atalhos, sem congelados.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Navegue</h3>
+                <ul>
+                    <li><a href="cardapio.htm">Cardápio</a></li>
+                    <li><a href="sobre.htm">A casa</a></li>
+                    <li><a href="contato.htm">Contato</a></li>
+                    <li><a href="comida_da_casa_corrigido/index.htm">Área do cliente</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Onde e quando</h3>
+                <p>Rua do Bom Jesus, 120<br>Recife Antigo, Recife — PE<br>Segunda a sábado, 11h–22h</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <p>
+                    <a href="https://wa.me/5581999999999">(81) 99999-9999</a><br>
+                    <a href="mailto:contato@comidadacasa.com.br">contato@comidadacasa.com.br</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Comida da Casa. Todos os direitos reservados.</span>
+            <span><a href="creditos.htm">Créditos e licenças</a></span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

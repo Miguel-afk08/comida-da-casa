@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Comida da Casa">
+  <rect width="64" height="64" rx="13" fill="#a8431f"/>
+  <path d="M25.5 21.5c0-3.2 3.2-3.2 3.2-6.4M32.5 21.5c0-3.2 3.2-3.2 3.2-6.4M39.5 21.5c0-3.2 3.2-3.2 3.2-6.4" fill="none" stroke="#f6f1e7" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M13.5 29.5h37c0 10.5-8.3 19-18.5 19s-18.5-8.5-18.5-19z" fill="none" stroke="#f6f1e7" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M13.5 29.5h37" fill="none" stroke="#f6f1e7" stroke-width="3" stroke-linecap="round"/>
+</svg>
