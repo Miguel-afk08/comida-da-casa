@@ -21,7 +21,6 @@
       alt: "Prato feito com arroz, feijão, carne, tomate e alface",
       desc: "Arroz soltinho, feijão temperado, carne de panela, macarrão e salada. O clássico que resolve o almoço.",
       tags: ["Mais pedido"],
-      category: "prato"
     },
     {
       id: "frango-grelhado",
@@ -31,7 +30,6 @@
       alt: "Filé de frango grelhado fatiado com brócolis e legumes",
       desc: "Filé de frango marinado no alho e limão, grelhado na hora, com arroz, feijão e legumes.",
       tags: [],
-      category: "prato"
     },
     {
       id: "carne-de-panela",
@@ -41,7 +39,6 @@
       alt: "Cubos de carne cozidos com molho e legumes",
       desc: "Carne cozida lentamente por três horas, macia no garfo, com arroz, feijão e legumes.",
       tags: ["Da casa"],
-      category: "prato"
     },
     {
       id: "feijoada",
@@ -51,49 +48,82 @@
       alt: "Feijoada em panela de barro com caldo escuro e carne",
       desc: "Feijão preto, linguiça, carne seca e paio. Vem com arroz, couve refogada e farofa.",
       tags: ["Sábados"],
-      category: "prato"
+    },
+  ];
+
+  var DRINK_OPTIONS = [
+    {
+      group: "Sucos naturais",
+      items: [
+        {
+          id: "suco-laranja",
+          name: "Suco de Laranja",
+          desc: "Feito na hora, com laranjas frescas",
+          sizes: [
+            { label: "400ml", price: 7 },
+            { label: "500ml", price: 9 }
+          ]
+        },
+        {
+          id: "suco-maracuja",
+          name: "Suco de Maracujá",
+          desc: "Batido na hora, com pouquinho de açúcar",
+          sizes: [
+            { label: "400ml", price: 7 },
+            { label: "500ml", price: 9 }
+          ]
+        },
+        {
+          id: "suco-limao",
+          name: "Suco de Limão",
+          desc: "Com ou sem açúcar, do seu jeito",
+          sizes: [
+            { label: "400ml", price: 7 },
+            { label: "500ml", price: 9 }
+          ]
+        }
+      ]
     },
     {
-      id: "suco-laranja",
-      name: "Suco de Laranja",
-      price: 7,
-      desc: "Feito na hora, com laranjas frescas. Copo de 400ml.",
-      tags: ["Natural"],
-      category: "bebida"
-    },
-    {
-      id: "suco-maracuja",
-      name: "Suco de Maracujá",
-      price: 7,
-      desc: "Maracujá batido na hora, com pouquinho de açúcar. Copo de 400ml.",
-      tags: ["Natural"],
-      category: "bebida"
-    },
-    {
-      id: "suco-limao",
-      name: "Suco de Limão",
-      price: 7,
-      desc: "Limonada batida, do jeito que você pedir: com ou sem açúcar. Copo de 400ml.",
-      tags: [],
-      category: "bebida"
-    },
-    {
-      id: "refri-lata",
-      name: "Refrigerante Lata",
-      price: 5,
-      desc: "Coca-Cola ou Guaraná Antarctica, 350ml, gelado.",
-      tags: [],
-      category: "bebida"
-    },
-    {
-      id: "refri-1l",
-      name: "Refrigerante 1 Litro",
-      price: 9,
-      desc: "Coca-Cola, Guaraná Antarctica ou Fanta Laranja, 1 litro, gelado.",
-      tags: [],
-      category: "bebida"
+      group: "Refrigerantes",
+      items: [
+        {
+          id: "refri-lata",
+          name: "Refrigerante Lata",
+          desc: "Coca-Cola ou Guaraná Antarctica",
+          sizes: [{ label: "350ml", price: 5 }]
+        },
+        {
+          id: "refri-1l",
+          name: "Refrigerante 1 Litro",
+          desc: "Coca-Cola, Guaraná ou Fanta Laranja",
+          sizes: [{ label: "1L", price: 9 }]
+        }
+      ]
     }
   ];
+
+  function drinkById(id) {
+    for (var g = 0; g < DRINK_OPTIONS.length; g++) {
+      for (var i = 0; i < DRINK_OPTIONS[g].items.length; i++) {
+        if (DRINK_OPTIONS[g].items[i].id === id) return DRINK_OPTIONS[g].items[i];
+      }
+    }
+    return null;
+  }
+
+  function drinkSizePrice(item, sizeLabel) {
+    for (var i = 0; i < item.sizes.length; i++) {
+      if (item.sizes[i].label === sizeLabel) return item.sizes[i].price;
+    }
+    return 0;
+  }
+
+  function drinkLabel(drink) {
+    if (!drink) return "Sem bebida";
+    var item = drinkById(drink.id);
+    return (item ? item.name : drink.id) + " " + drink.size;
+  }
 
   var money = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -115,22 +145,36 @@
      ---------------------------------------------------------------------- */
 
   var cart = loadCart();
+  var pendingDrink = null;
 
   function loadCart() {
     try {
       var raw = window.localStorage.getItem(STORAGE_KEY);
-      if (!raw) return {};
+      if (!raw) return [];
       var parsed = JSON.parse(raw);
-      var clean = {};
+      if (Array.isArray(parsed)) {
+        return parsed
+          .filter(function (line) {
+            return dishById(line.id) && parseInt(line.qty, 10) > 0;
+          })
+          .map(function (line) {
+            var drink =
+              line.drink && drinkById(line.drink.id) && drinkSizePrice(drinkById(line.drink.id), line.drink.size)
+                ? line.drink
+                : null;
+            return { id: line.id, qty: Math.min(parseInt(line.qty, 10), 99), drink: drink };
+          });
+      }
+      var lines = [];
       Object.keys(parsed || {}).forEach(function (id) {
         var quantity = parseInt(parsed[id], 10);
         if (dishById(id) && quantity > 0) {
-          clean[id] = Math.min(quantity, 99);
+          lines.push({ id: id, qty: Math.min(quantity, 99), drink: null });
         }
       });
-      return clean;
+      return lines;
     } catch (error) {
-      return {};
+      return [];
     }
   }
 
@@ -142,38 +186,44 @@
     }
   }
 
+  function lineUnits(line) {
+    return line.qty + (line.drink ? line.qty : 0);
+  }
+
+  function lineTotal(line) {
+    var total = dishById(line.id).price * line.qty;
+    if (line.drink) total += line.drink.price * line.qty;
+    return total;
+  }
+
   function cartCount() {
-    return Object.keys(cart).reduce(function (total, id) {
-      return total + cart[id];
+    return cart.reduce(function (total, line) {
+      return total + lineUnits(line);
     }, 0);
   }
 
   function cartTotal() {
-    return Object.keys(cart).reduce(function (total, id) {
-      return total + dishById(id).price * cart[id];
+    return cart.reduce(function (total, line) {
+      return total + lineTotal(line);
     }, 0);
   }
 
-  function addToCart(id, quantity) {
-    var dish = dishById(id);
-    if (!dish) return;
-    cart[id] = Math.min((cart[id] || 0) + (quantity || 1), 99);
-    saveCart();
-    renderCart();
-    showToast(dish.name + " entrou na sacola.");
-  }
-
-  function changeQuantity(id, delta) {
-    if (!cart[id]) return;
-    cart[id] += delta;
-    if (cart[id] <= 0) delete cart[id];
+  function changeQuantity(lineIndex, delta) {
+    var line = cart[lineIndex];
+    if (!line) return;
+    line.qty += delta;
+    if (line.qty <= 0) {
+      cart.splice(lineIndex, 1);
+    }
     saveCart();
     renderCart();
   }
 
-  function removeFromCart(id) {
-    var dish = dishById(id);
-    delete cart[id];
+  function removeFromCart(lineIndex) {
+    var line = cart[lineIndex];
+    if (!line) return;
+    var dish = dishById(line.id);
+    cart.splice(lineIndex, 1);
     saveCart();
     renderCart();
     if (dish) showToast(dish.name + " saiu da sacola.");
@@ -182,7 +232,6 @@
   function renderCart() {
     var count = cartCount();
     var total = cartTotal();
-    var ids = Object.keys(cart);
 
     document.querySelectorAll("[data-cart-count]").forEach(function (node) {
       node.textContent = count;
@@ -193,31 +242,40 @@
     });
 
     document.querySelectorAll("[data-cart-checkout]").forEach(function (button) {
-      button.disabled = ids.length === 0;
+      button.disabled = cart.length === 0;
     });
 
     document.querySelectorAll("[data-cart-items]").forEach(function (container) {
-      if (!ids.length) {
+      if (!cart.length) {
         container.innerHTML =
-          '<p class="cart-empty">Sua sacola está vazia. Escolha um prato ou uma bebida no cardápio.</p>';
+          '<p class="cart-empty">Sua sacola está vazia. Escolha um prato no cardápio.</p>';
         return;
       }
 
-      container.innerHTML = ids
-        .map(function (id) {
-          var dish = dishById(id);
-          var quantity = cart[id];
+      container.innerHTML = cart
+        .map(function (line, index) {
+          var dish = dishById(line.id);
+          var drinkText = line.drink
+            ? '<div class="cart-line-drink">' +
+              "<span>Bebida: " + drinkLabel(line.drink) + " ×" + line.qty + "</span>" +
+              '<span class="cart-line-drink-price">+' + moneyText(line.drink.price * line.qty) + "</span>" +
+              "</div>"
+            : '<div class="cart-line-drink is-none"><span>Sem bebida</span></div>';
           return (
             '<div class="cart-line">' +
             '<div class="cart-line-name">' + dish.name + "</div>" +
             '<div class="cart-line-unit">' + moneyText(dish.price) + " cada</div>" +
+            drinkText +
             '<div class="cart-line-controls">' +
             '<div class="cart-qty">' +
-            '<button type="button" data-cart-dec="' + id + '" aria-label="Diminuir ' + dish.name + '">−</button>' +
-            '<span aria-live="polite">' + quantity + "</span>" +
-            '<button type="button" data-cart-inc="' + id + '" aria-label="Aumentar ' + dish.name + '">+</button>' +
+            '<button type="button" data-cart-dec="' + index + '" aria-label="Diminuir ' + dish.name + '">−</button>' +
+            '<span aria-live="polite">' + line.qty + "</span>" +
+            '<button type="button" data-cart-inc="' + index + '" aria-label="Aumentar ' + dish.name + '">+</button>' +
             "</div>" +
-            '<button type="button" class="cart-remove" data-cart-remove="' + id + '">Remover</button>' +
+            '<div class="cart-line-actions">' +
+            '<button type="button" class="cart-swap" data-drink-swap="' + index + '">Trocar bebida</button>' +
+            '<button type="button" class="cart-remove" data-cart-remove="' + index + '">Remover</button>' +
+            "</div>" +
             "</div>" +
             "</div>"
           );
@@ -227,23 +285,139 @@
 
     var mobileBar = document.querySelector("[data-mobile-cart]");
     if (mobileBar) {
-      mobileBar.hidden = ids.length === 0;
+      mobileBar.hidden = cart.length === 0;
       var mobileCount = mobileBar.querySelector("[data-mobile-cart-count]");
       var mobileTotal = mobileBar.querySelector("[data-mobile-cart-total]");
       if (mobileCount) mobileCount.textContent = count;
       if (mobileTotal) mobileTotal.textContent = moneyText(total);
     }
 
-    if (!ids.length && drawer && !drawer.hidden) {
+    if (!cart.length && !pendingDrink && drawer && !drawer.hidden) {
       closeDrawer();
     }
   }
 
+  /* ----------------------------------------------------------------------
+     Etapa da bebida
+     ---------------------------------------------------------------------- */
+
+  function drinkStepMarkup() {
+    var dish = dishById(pendingDrink.dishId);
+
+    var groups = DRINK_OPTIONS.map(function (group) {
+      var items = group.items
+        .map(function (item) {
+          var sizes = item.sizes
+            .map(function (size) {
+              return (
+                '<button type="button" class="drink-size" data-drink-choose="' +
+                item.id + "|" + size.label + '">' +
+                '<span class="drink-size-label">' + size.label + "</span>" +
+                '<span class="drink-size-price">' + moneyText(size.price) + "</span>" +
+                "</button>"
+              );
+            })
+            .join("");
+
+          return (
+            '<div class="drink-option">' +
+            '<div class="drink-option-info">' +
+            '<div class="drink-option-name">' + item.name + "</div>" +
+            '<div class="drink-option-desc">' + item.desc + "</div>" +
+            "</div>" +
+            '<div class="drink-sizes">' + sizes + "</div>" +
+            "</div>"
+          );
+        })
+        .join("");
+
+      return '<div class="drink-group"><span class="eyebrow">' + group.group + "</span>" + items + "</div>";
+    });
+
+    return (
+      '<div class="drink-step">' +
+      '<p class="drink-step-intro">Complete seu pedido: escolha uma bebida para acompanhar, ou siga sem bebida.</p>' +
+      '<div class="drink-step-dish">' +
+      "<strong>" + dish.name + "</strong>" +
+      "<span>×" + pendingDrink.qty + " — " + moneyText(dish.price * pendingDrink.qty) + "</span>" +
+      "</div>" +
+      groups.join("") +
+      '<button type="button" class="btn btn-outline drink-none" data-drink-none>Não quero bebida</button>' +
+      '<small class="cart-note">A bebida acompanha a mesma quantidade do prato. Você pode trocar depois, na sacola.</small>' +
+      "</div>"
+    );
+  }
+
+  function startDrinkStep(dishId, quantity, lineIndex) {
+    var dish = dishById(dishId);
+    if (!dish) return;
+    pendingDrink = {
+      dishId: dishId,
+      qty: Math.min(quantity || 1, 99),
+      lineIndex: typeof lineIndex === "number" ? lineIndex : null
+    };
+    openDrawer();
+  }
+
+  function finishDrinkStep(drink) {
+    if (!pendingDrink) return;
+    var swapped = pendingDrink.lineIndex !== null && cart[pendingDrink.lineIndex];
+    var line;
+    if (swapped) {
+      line = cart[pendingDrink.lineIndex];
+      line.drink = drink;
+    } else {
+      line = { id: pendingDrink.dishId, qty: pendingDrink.qty, drink: drink };
+      cart.push(line);
+    }
+    var dish = dishById(line.id);
+    pendingDrink = null;
+    saveCart();
+    renderDrawerBody();
+    if (swapped) {
+      showToast(drink ? "Bebida trocada: " + drinkLabel(drink) + "." : "Bebida removida do pedido.");
+    } else {
+      showToast(dish.name + (drink ? " + " + drinkLabel(drink) : "") + " entrou na sacola.");
+    }
+  }
+
+  function chooseDrink(value) {
+    if (!pendingDrink) return;
+    var parts = value.split("|");
+    var item = drinkById(parts[0]);
+    var price = item ? drinkSizePrice(item, parts[1]) : 0;
+    if (!item || !price) return;
+    finishDrinkStep({ id: item.id, size: parts[1], price: price });
+  }
+
+  function skipDrink() {
+    finishDrinkStep(null);
+  }
+
+  function renderDrawerBody() {
+    if (!drawer) return;
+    var title = drawer.querySelector("#drawer-title");
+    var foot = drawer.querySelector(".drawer-foot");
+    var body = drawer.querySelector(".drawer-body");
+    if (pendingDrink) {
+      title.textContent = "Escolha a bebida";
+      foot.hidden = true;
+      body.innerHTML = drinkStepMarkup();
+    } else {
+      title.textContent = "Sua sacola";
+      foot.hidden = false;
+      body.innerHTML = '<div data-cart-items></div>';
+    }
+    renderCart();
+  }
+
   function checkoutMessage() {
-    var ids = Object.keys(cart);
-    var lines = ids.map(function (id) {
-      var dish = dishById(id);
-      return "• " + cart[id] + "x " + dish.name + " — " + moneyText(dish.price * cart[id]);
+    var lines = cart.map(function (line) {
+      var dish = dishById(line.id);
+      var drinkText = line.drink
+        ? " + " + line.qty + "x " + drinkLabel(line.drink)
+        : " (sem bebida)";
+      return "• " + line.qty + "x " + dish.name + drinkText + " — " + moneyText(lineTotal(line));
     });
 
     return (
@@ -322,59 +496,15 @@
     );
   }
 
-  function drinkMarkup(dish) {
-    var tags = dish.tags
-      .map(function (tag) {
-        return '<span class="tag">' + tag + "</span>";
-      })
-      .join("");
-
-    return (
-      '<article class="menu-item menu-item--drink" data-dish-item="' + dish.id + '">' +
-      "<div>" +
-      "<h2>" + dish.name + "</h2>" +
-      '<p class="desc">' + dish.desc + "</p>" +
-      (tags ? '<div class="dish-tags">' + tags + "</div>" : "") +
-      '<div class="menu-foot">' +
-      '<span class="price">' + moneyText(dish.price) + "</span>" +
-      '<div class="qty">' +
-      '<button type="button" data-qty-minus aria-label="Diminuir quantidade de ' + dish.name + '">−</button>' +
-      '<span data-qty-value>1</span>' +
-      '<button type="button" data-qty-plus aria-label="Aumentar quantidade de ' + dish.name + '">+</button>' +
-      "</div>" +
-      '<button type="button" class="btn btn-primary btn-small" data-add="' + dish.id + '">Adicionar</button>' +
-      "</div>" +
-      "</div>" +
-      "</article>"
-    );
-  }
-
   function renderMenu() {
-    var dishes = DISHES.filter(function (dish) {
-      return dish.category !== "bebida";
-    });
-    var drinks = DISHES.filter(function (dish) {
-      return dish.category === "bebida";
-    });
-
     var featured = document.querySelector("[data-featured]");
     if (featured) {
-      featured.innerHTML = dishes.map(featuredMarkup).join("");
+      featured.innerHTML = DISHES.map(featuredMarkup).join("");
     }
 
     var menu = document.querySelector("[data-menu]");
     if (menu) {
-      var html = "";
-      if (drinks.length) {
-        html +=
-          '<div class="menu-section">' +
-          '<span class="eyebrow">Bebidas</span>' +
-          '<h2 class="menu-section-title">Para acompanhar.</h2>' +
-          "</div>" +
-          drinks.map(drinkMarkup).join("");
-      }
-      html += dishes.map(menuMarkup).join("");
-      menu.innerHTML = html;
+      menu.innerHTML = DISHES.map(menuMarkup).join("");
     }
   }
 
@@ -412,6 +542,7 @@
   function openDrawer() {
     if (!drawer) return;
     lastFocused = document.activeElement;
+    renderDrawerBody();
     drawer.hidden = false;
     document.body.classList.add("no-scroll");
     window.requestAnimationFrame(function () {
@@ -590,7 +721,26 @@
       var item = addButton.closest("[data-dish-item]");
       var quantityNode = item ? item.querySelector("[data-qty-value]") : null;
       var quantity = quantityNode ? parseInt(quantityNode.textContent, 10) || 1 : 1;
-      addToCart(addButton.getAttribute("data-add"), quantity);
+      startDrinkStep(addButton.getAttribute("data-add"), quantity, null);
+      return;
+    }
+
+    var choose = event.target.closest("[data-drink-choose]");
+    if (choose) {
+      chooseDrink(choose.getAttribute("data-drink-choose"));
+      return;
+    }
+
+    var none = event.target.closest("[data-drink-none]");
+    if (none) {
+      skipDrink();
+      return;
+    }
+
+    var swap = event.target.closest("[data-drink-swap]");
+    if (swap) {
+      var swapIndex = parseInt(swap.getAttribute("data-drink-swap"), 10);
+      if (cart[swapIndex]) startDrinkStep(cart[swapIndex].id, cart[swapIndex].qty, swapIndex);
       return;
     }
 
@@ -612,19 +762,19 @@
 
     var increase = event.target.closest("[data-cart-inc]");
     if (increase) {
-      changeQuantity(increase.getAttribute("data-cart-inc"), 1);
+      changeQuantity(parseInt(increase.getAttribute("data-cart-inc"), 10), 1);
       return;
     }
 
     var decrease = event.target.closest("[data-cart-dec]");
     if (decrease) {
-      changeQuantity(decrease.getAttribute("data-cart-dec"), -1);
+      changeQuantity(parseInt(decrease.getAttribute("data-cart-dec"), 10), -1);
       return;
     }
 
     var remove = event.target.closest("[data-cart-remove]");
     if (remove) {
-      removeFromCart(remove.getAttribute("data-cart-remove"));
+      removeFromCart(parseInt(remove.getAttribute("data-cart-remove"), 10));
       return;
     }
 
