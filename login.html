@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Entrar — Comida da Casa</title>
+    <meta name="description" content="Entre na sua conta da Comida da Casa para preencher seus dados automaticamente no próximo pedido.">
+    <meta name="theme-color" content="#f6f1e7">
+    <script>
+    (function () {
+        var tema = "light";
+        try {
+            tema = localStorage.getItem("comida-da-casa:tema:v1");
+            if (!tema) tema = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", tema);
+    })();
+    </script>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="login">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="Comida da Casa — página inicial">
+                <span class="brand-name">Comida da Casa</span>
+                <span class="brand-sub">Cozinha caseira · Recife</span>
+            </a>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+                <a href="cardapio.html">Cardápio</a>
+                <a href="sobre.html">A casa</a>
+                <a href="contato.html">Contato</a>
+                <a class="nav-account is-active" href="login.html" aria-current="page" data-account-link>Entrar</a>
+                <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                    <span data-theme-label>Tema escuro</span>
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button type="button" class="theme-toggle theme-toggle-head" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                </button>
+                <button type="button" class="cart-button" data-cart-open aria-label="Abrir sacola">
+                    Sacola <span class="cart-count" data-cart-count>0</span>
+                </button>
+                <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="conteudo">
+        <section class="section auth-section">
+            <div class="container auth-layout">
+                <div class="auth-intro">
+                    <span class="eyebrow">Sua conta</span>
+                    <h1>Da próxima vez,<br><em>a gente já sabe.</em></h1>
+                    <p>Salve seu nome, WhatsApp e endereço uma vez. No próximo pedido, tudo vem preenchido — e você pode mudar o que quiser.</p>
+                    <ul class="auth-benefits">
+                        <li>Checkout mais rápido</li>
+                        <li>Endereço salvo com segurança</li>
+                        <li>Cadastro gratuito e opcional</li>
+                    </ul>
+                    <a class="link-arrow" href="cardapio.html">Prefiro continuar como visitante</a>
+                </div>
+
+                <div class="auth-card">
+                    <span class="eyebrow">Bem-vindo de volta</span>
+                    <h2>Entre na sua conta</h2>
+                    <p class="auth-card-sub">Use o e-mail e a senha que você cadastrou.</p>
+
+                    <div class="auth-account" data-account-panel hidden>
+                        <span class="eyebrow">Você está conectado</span>
+                        <strong data-account-name></strong>
+                        <p>Seus dados estão prontos para o próximo pedido.</p>
+                        <a class="btn btn-primary btn-block" href="cardapio.html">Continuar pedindo</a>
+                        <button type="button" class="btn btn-outline btn-block" data-logout>Sair da conta</button>
+                    </div>
+
+                    <form class="auth-form" data-login-form>
+                        <div class="field">
+                            <label for="login-email">E-mail</label>
+                            <input id="login-email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com">
+                        </div>
+
+                        <div class="field">
+                            <label for="login-senha">Senha</label>
+                            <input id="login-senha" name="senha" type="password" required autocomplete="current-password" placeholder="Sua senha">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        <p class="form-status auth-status" data-login-status role="status"></p>
+                    </form>
+
+                    <form class="auth-form" data-recover-form hidden>
+                        <p class="auth-card-sub">Digite seu e-mail e enviaremos um link para você criar uma nova senha.</p>
+                        <div class="field">
+                            <label for="recover-email">E-mail</label>
+                            <input id="recover-email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Enviar link</button>
+                        <p class="form-status auth-status" data-recover-status role="status"></p>
+                    </form>
+
+                    <div class="auth-links" data-login-only>
+                        <button type="button" class="text-button" data-recover-toggle>Esqueci minha senha</button>
+                        <p>Ainda não tem conta? <a href="cadastro.html"><strong>Criar uma conta</strong></a></p>
+                        <a class="btn btn-outline btn-block" href="cardapio.html">Continuar como visitante</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.html">
+                    <span class="brand-name">Comida da Casa</span>
+                    <span class="brand-sub">Cozinha caseira · Recife</span>
+                </a>
+                <p>Comida de verdade, feita todos os dias no Recife Antigo. Sem atalhos, sem congelados.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Navegue</h3>
+                <ul>
+                    <li><a href="cardapio.html">Cardápio</a></li>
+                    <li><a href="sobre.html">A casa</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="login.html" data-account-link>Entrar</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Onde e quando</h3>
+                <p>Rua do Bom Jesus, 120<br>Recife Antigo, Recife — PE<br>Segunda a sábado, 11h–22h</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <p>
+                    <a href="https://wa.me/5581999999999">(81) 99999-9999</a><br>
+                    <a href="mailto:contato@comidadacasa.com.br">contato@comidadacasa.com.br</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Comida da Casa. Todos os direitos reservados.</span>
+            <span><a href="creditos.html">Créditos e licenças</a></span>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
+    <script src="firebase-config.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+</body>
+
+</html>

@@ -2092,3 +2092,432 @@ html:not([data-theme="dark"]) .theme-toggle .icon-moon {
     transform: none;
   }
 }
+
+/* Seções do cardápio ----------------------------------------------------- */
+
+.menu-list {
+  border-top: 0;
+}
+
+.menu-section + .menu-section {
+  margin-top: clamp(36px, 6vw, 64px);
+}
+
+.menu-section-head {
+  padding: 8px 0 22px;
+  border-top: 1px solid var(--line);
+}
+
+.menu-section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.menu-section-head p {
+  max-width: 60ch;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.menu-grid {
+  border-top: 1px solid var(--line);
+}
+
+/* Checkout --------------------------------------------------------------- */
+
+.checkout-form {
+  padding: 24px 0 32px;
+}
+
+.checkout-account-note {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--clay);
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.checkout-account-note a {
+  color: var(--clay);
+  font-weight: 600;
+}
+
+.checkout-sub {
+  margin: 2px 0 16px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.checkout-address {
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.delivery-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 22px;
+  padding: 0;
+  border: 0;
+}
+
+.delivery-options legend {
+  margin-bottom: 10px;
+  padding: 0;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.delivery-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--motion-step) ease, background var(--motion-step) ease;
+}
+
+.delivery-option:has(input:checked) {
+  border-color: var(--clay);
+  background: var(--paper-2);
+}
+
+.delivery-option input {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  accent-color: var(--clay);
+}
+
+.delivery-option span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.delivery-option strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.delivery-option small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.field-hint {
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.checkout-form .field textarea {
+  min-height: 80px;
+}
+
+.checkout-summary {
+  margin: 8px 0 20px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+  font-size: 0.9rem;
+}
+
+.summary-row strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-total {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.checkout-form .btn-block + .btn-block {
+  margin-top: 10px;
+}
+
+.checkout-form > .cart-note {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Agradecimento ---------------------------------------------------------- */
+
+.thanks-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+  padding: 42px 0;
+  text-align: center;
+}
+
+.thanks-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 2px;
+  border-radius: 50%;
+  background: var(--olive);
+  color: var(--cream);
+  font-size: 1.7rem;
+}
+
+.thanks-panel strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.thanks-panel p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* Login e cadastro ------------------------------------------------------- */
+
+.auth-section {
+  padding-top: clamp(44px, 7vw, 92px);
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(36px, 7vw, 96px);
+  align-items: start;
+  max-width: 1080px;
+}
+
+.auth-intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 5.2vw, 4.4rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.auth-intro h1 em {
+  color: var(--clay);
+}
+
+.auth-intro > p {
+  max-width: 42ch;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.auth-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.auth-benefits li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.auth-benefits li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--clay);
+  font-weight: 600;
+}
+
+.auth-card {
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  box-shadow: 0 18px 48px rgba(45, 35, 22, 0.06);
+}
+
+.auth-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.auth-card-sub {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.auth-form {
+  margin-top: 18px;
+}
+
+.auth-form .field input,
+.auth-form .field select {
+  min-height: 48px;
+}
+
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.auth-links p {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.auth-links a {
+  color: var(--clay);
+}
+
+.text-button {
+  align-self: center;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--clay);
+  font-size: 0.84rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth-status {
+  text-align: center;
+}
+
+.form-status.is-success {
+  color: var(--olive);
+}
+
+.auth-account {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 0;
+  text-align: center;
+}
+
+.auth-account strong {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.auth-account p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 20px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+/* Telas pequenas --------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    max-width: 640px;
+  }
+
+  .auth-intro h1 {
+    font-size: clamp(2.5rem, 9vw, 3.6rem);
+  }
+
+  .delivery-options {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form .field input,
+  .checkout-form .field select,
+  .checkout-form .field textarea,
+  .auth-form .field input {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer-body {
+    padding: 0 18px;
+  }
+
+  .drawer-head,
+  .drawer-foot {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .menu-section-head h2 {
+    font-size: 2rem;
+  }
+
+  .auth-card {
+    padding: 24px 20px;
+  }
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar conta — Comida da Casa</title>
+    <meta name="description" content="Crie sua conta da Comida da Casa e salve seus dados para pedir novamente com muito mais rapidez.">
+    <meta name="theme-color" content="#f6f1e7">
+    <script>
+    (function () {
+        var tema = "light";
+        try {
+            tema = localStorage.getItem("comida-da-casa:tema:v1");
+            if (!tema) tema = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", tema);
+    })();
+    </script>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="cadastro">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="Comida da Casa — página inicial">
+                <span class="brand-name">Comida da Casa</span>
+                <span class="brand-sub">Cozinha caseira · Recife</span>
+            </a>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+                <a href="cardapio.html">Cardápio</a>
+                <a href="sobre.html">A casa</a>
+                <a href="contato.html">Contato</a>
+                <a class="nav-account" href="login.html" data-account-link>Entrar</a>
+                <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                    <span data-theme-label>Tema escuro</span>
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button type="button" class="theme-toggle theme-toggle-head" data-theme-toggle aria-pressed="false" aria-label="Mudar para o tema escuro">
+                    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"/></svg>
+                </button>
+                <button type="button" class="cart-button" data-cart-open aria-label="Abrir sacola">
+                    Sacola <span class="cart-count" data-cart-count>0</span>
+                </button>
+                <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="conteudo">
+        <section class="section auth-section auth-section-register">
+            <div class="container auth-layout">
+                <div class="auth-intro">
+                    <span class="eyebrow">Pedir de novo é mais fácil</span>
+                    <h1>Sua conta,<br><em>seu próximo pedido.</em></h1>
+                    <p>Crie sua conta e salve seus dados uma única vez. Na próxima compra, nome, WhatsApp e endereço já aparecem preenchidos.</p>
+                    <ul class="auth-benefits">
+                        <li>Gratuito e sem compromisso</li>
+                        <li>Você edita os dados quando quiser</li>
+                        <li>Pode mudar o endereço de entrega</li>
+                    </ul>
+                    <a class="link-arrow" href="login.html">Já tenho uma conta</a>
+                </div>
+
+                <div class="auth-card auth-card-wide">
+                    <span class="eyebrow">Criar conta</span>
+                    <h2>Vamos salvar seus dados</h2>
+                    <p class="auth-card-sub">Preencha uma vez. A senha fica somente na sua conta Firebase — nunca é salva no navegador nem no banco.</p>
+
+                    <form class="auth-form" data-register-form>
+                        <div class="field">
+                            <label for="cad-nome">Nome completo</label>
+                            <input id="cad-nome" name="nome" type="text" required autocomplete="name" placeholder="Seu nome completo">
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="cad-email">E-mail</label>
+                                <input id="cad-email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com">
+                            </div>
+                            <div class="field">
+                                <label for="cad-senha">Senha (mínimo 6 caracteres)</label>
+                                <input id="cad-senha" name="senha" type="password" required minlength="6" autocomplete="new-password" placeholder="Crie uma senha">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="cad-whatsapp">WhatsApp</label>
+                            <input id="cad-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="(81) 99999-9999">
+                        </div>
+
+                        <div class="auth-divider"><span>Endereço de entrega</span></div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="cad-cep">CEP</label>
+                                <input id="cad-cep" name="cep" type="text" required inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="50000-000" data-cep>
+                                <small class="field-hint" data-cep-status>O endereço é preenchido automaticamente.</small>
+                            </div>
+                            <div class="field">
+                                <label for="cad-numero">Número</label>
+                                <input id="cad-numero" name="numero" type="text" required autocomplete="address-line1" placeholder="123">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="cad-rua">Rua</label>
+                            <input id="cad-rua" name="rua" type="text" required autocomplete="address-line2" placeholder="Preenchido pelo CEP">
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="cad-bairro">Bairro</label>
+                                <input id="cad-bairro" name="bairro" type="text" required autocomplete="address-level2" placeholder="Preenchido pelo CEP">
+                            </div>
+                            <div class="field">
+                                <label for="cad-cidade">Cidade</label>
+                                <input id="cad-cidade" name="cidade" type="text" required autocomplete="address-level1" placeholder="Preenchido pelo CEP">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="cad-complemento">Complemento (opcional)</label>
+                            <input id="cad-complemento" name="complemento" type="text" placeholder="Apto, bloco, referência...">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Criar minha conta</button>
+                        <p class="form-status auth-status" data-register-status role="status"></p>
+                    </form>
+
+                    <div class="auth-links">
+                        <p>Já tem conta? <a href="login.html"><strong>Entrar</strong></a></p>
+                        <a class="btn btn-outline btn-block" href="cardapio.html">Continuar sem cadastro</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.html">
+                    <span class="brand-name">Comida da Casa</span>
+                    <span class="brand-sub">Cozinha caseira · Recife</span>
+                </a>
+                <p>Comida de verdade, feita todos os dias no Recife Antigo. Sem atalhos, sem congelados.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Navegue</h3>
+                <ul>
+                    <li><a href="cardapio.html">Cardápio</a></li>
+                    <li><a href="sobre.html">A casa</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="login.html" data-account-link>Entrar</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Onde e quando</h3>
+                <p>Rua do Bom Jesus, 120<br>Recife Antigo, Recife — PE<br>Segunda a sábado, 11h–22h</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contato</h3>
+                <p>
+                    <a href="https://wa.me/5581999999999">(81) 99999-9999</a><br>
+                    <a href="mailto:contato@comidadacasa.com.br">contato@comidadacasa.com.br</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© 2026 Comida da Casa. Todos os direitos reservados.</span>
+            <span><a href="creditos.html">Créditos e licenças</a></span>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
+    <script src="firebase-config.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+</body>
+
+</html>
